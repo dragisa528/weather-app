@@ -9,6 +9,10 @@ const message = document.querySelector("#message");
 // action listener to button;
 button.addEventListener("click", checkButtonEvent);
 
+
+// object to store data obtain from weather API;
+let weatherData = {};
+
 // function on button;
 function checkButtonEvent() {
 
@@ -23,7 +27,23 @@ function checkButtonEvent() {
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            // console.log(data["main"]["temp"]);
-            message.innerHTML = `${data["main"]["temp"]}<sup>o</sup>C`;
+            weatherData.temperature = `${data["main"]["temp"]}<sup>o</sup>C`;
+            weatherData.atmosphere = data["weather"][0]["description"];
+            weatherData.pressure = data["main"]["pressure"];
+            weatherData.city = data["name"];
+            weatherData.country = data["sys"]["country"];
+            weatherData.time = getCurrentTime(data["timezone"]);
+
+            message.innerHTML = weatherData.time;
+            window.location.href = "weather.html";
     });
+}
+
+// caculate time from timezone;
+function getCurrentTime(timezone) {
+    const currentTime = new Date();
+    const localTimezoneOffset = currentTime.getTimezoneOffset() * 60; // Get local timezone offset in seconds
+    const targetTime = new Date(currentTime.getTime() + (timezone + localTimezoneOffset) * 1000);
+  
+    return targetTime.toLocaleTimeString();
 }
