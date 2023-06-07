@@ -73,9 +73,9 @@ function getWeatherInfo() {
                 return;
             }
 
-            weatherData.temperature = `${data["main"]["temp"]}<sup>o</sup>C`;
+            weatherData.temperature = `${data["main"]["temp"]} <sup>o</sup>C`;
             weatherData.atmosphere = data["weather"][0]["description"];
-            weatherData.pressure = data["main"]["pressure"];
+            weatherData.pressure = `${data["main"]["pressure"]} hPa`;
             weatherData.city = data["name"];
             weatherData.country = data["sys"]["country"];
 
