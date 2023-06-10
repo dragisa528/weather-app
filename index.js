@@ -1,15 +1,15 @@
 // HTML elements;
-const search = document.querySelector("#search");
-const datalist = document.querySelector("#datalist");
-const button = document.querySelector("button");
+const searchInput = document.querySelector("#searchInput");
+const citylist = document.querySelector("#citylist");
+const searchButton = document.querySelector("Button");
 
-// action listener to button;
-button.addEventListener("click", checkButtonEvent);
+// action listener to searchButton;
+searchButton.addEventListener("click", searchButtonEvent);
 
-// add listener to search-bar;
-search.addEventListener("input", addSuggestions);
+// add listener to searchInput-bar;
+searchInput.addEventListener("input", addSuggestions);
 
-// "input" eventListener on search bar;
+// "input" eventListener on searchInput bar;
 let cities = [];
 
 // calling function to get cities using API;
@@ -21,10 +21,10 @@ function getCities() {
     
     fetch(CITIES_API_URL)
         .then(response => response.json())
-        .then(data => {
+        .then(weatherInfo => {
 
-            data["data"].forEach(country => {
-                country["cities"].forEach(city => {
+            weatherInfo.data.forEach(country => {
+                country.cities.forEach(city => {
                     cities.push(city);
                 });
             });
@@ -34,23 +34,26 @@ function getCities() {
         });
 }
 
-// search-bar listener to add to give suggestions;
+// store matching cities;
+let matchedCities = [];
+
+// searchInput-bar listener to add to give suggestions;
 function addSuggestions() {
 
-    let city = new String(search.value).toLowerCase();
+    let city = new String(searchInput.value).toLowerCase();
 
     // getting the cities matches to user input;
     let matchedCities = cities.filter(element =>
-        new String(element).toLowerCase().startsWith(city));
+        element.toLowerCase().startsWith(city));
 
     // adding cities to suggestion;
     matchedCities = matchedCities.map(element => `<option value="${element}">${element}</option>`);
-    datalist.innerHTML = matchedCities;
+    citylist.innerHTML = matchedCities;
 }
 
-// check button listener;
-function checkButtonEvent() {
-    const city = search.value;
+// check searchButton listener;
+function searchButtonEvent() {
+    const city = searchInput.value;
 
     if(city == "") {
         return;
