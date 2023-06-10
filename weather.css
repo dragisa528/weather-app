@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Jetbrains Mono', 'Segoe UI', Geneva, Verdana, sans-serif;
+    font-family: ostwald, Rubik, 'Jetbrains Mono', 'Segoe UI', Geneva, Verdana, sans-serif;
     color: white;
 
     text-shadow: 1px 1px 2px black;
@@ -23,11 +23,12 @@ body {
     background-image: url("images/night.jpg");
 }
 
-.outer, .inner {
+.outer, .inner, .mostInner {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .outer {
@@ -36,6 +37,10 @@ body {
 
 .inner {
     width: 80%;
+}
+
+.mostInner {
+    flex-direction: row;
 }
 
 #errorMessage {
@@ -53,6 +58,8 @@ body {
 
 h1 {
     margin: 20px;
+    text-shadow: 2px 2px 5px rgb(252, 209, 21),
+        -2px -2px 5px black;
 }
 
 table, tr, td {
@@ -61,10 +68,11 @@ table, tr, td {
 
 table {
     width: 80%;
-    border-radius: 10px;
-    box-shadow: 3px 2px 10px rgba(128, 128, 128, 0.767),
-                -2px -3px 10px rgba(128, 128, 128, 0.801);
-    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 15px 15px 2px 2px;
+    box-shadow: 3px 2px 10px rgb(83, 83, 83),
+                -2px -3px 10px rgba(83, 83, 83);
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 18px;
 }
 
 .hide {
