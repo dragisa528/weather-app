@@ -9,46 +9,32 @@ searchButton.addEventListener("click", searchButtonEvent);
 // add listener to searchInput-bar;
 searchInput.addEventListener("input", addSuggestions);
 
-// "input" eventListener on searchInput bar;
-let cities = [];
+// searchInput-bar listener to add to give suggestions;
+function addSuggestions() {
 
-// calling function to get cities using API;
-getCities();
+    let cityName = new String(searchInput.value);
 
-// this function uses API and store all the city names into "cities" ARRAY;
-function getCities() {
-    const CITIES_API_URL = "https://countriesnow.space/api/v0.1/countries";
+    // GeoNames API;
+    const CITIES_API_URL = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=5&username=junaid_ali`;
+
+    let cities = [];
     
+    // getting data using API;
     fetch(CITIES_API_URL)
-        .then(response => response.json())
-        .then(weatherInfo => {
+        .then(response =>  response.json())
+        .then(data => {
 
-            weatherInfo.data.forEach(country => {
-                country.cities.forEach(city => {
-                    cities.push(city);
-                });
+            data.geonames.forEach(cityInfo => {
+                cities.push(cityInfo.toponymName);
             });
+
+            // adding cities to suggestion;
+            cities = cities.map(element => `<option value="${element}">${element}</option>`);
+            citylist.innerHTML = cities;
         })
         .catch(reason => {
             console.log(reason);
         });
-}
-
-// store matching cities;
-let matchedCities = [];
-
-// searchInput-bar listener to add to give suggestions;
-function addSuggestions() {
-
-    let city = new String(searchInput.value).toLowerCase();
-
-    // getting the cities matches to user input;
-    let matchedCities = cities.filter(element =>
-        element.toLowerCase().startsWith(city));
-
-    // adding cities to suggestion;
-    matchedCities = matchedCities.map(element => `<option value="${element}">${element}</option>`);
-    citylist.innerHTML = matchedCities;
 }
 
 // check searchButton listener;

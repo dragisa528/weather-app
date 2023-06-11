@@ -28,8 +28,8 @@ input {
     width: 50%;
     padding: 12px;
     border-radius: 15px;
-    background-color: rgb(48, 45, 45);
-    color: white;
+    border: 2px solid silver;
+    outline: none;
 }
 
 button {
@@ -38,11 +38,11 @@ button {
     border-radius: 10px;
     background-color: transparent;
     color: white;
-    border-color: rgb(221, 0, 111);
+    border-color: #eb4d42;
 }
 
 button:hover {
-    background-color: rgb(221, 0, 111);
+    background-color: #eb4d42;
 }
 
 button:active {
@@ -57,4 +57,15 @@ p {
 
 .hide {
     visibility: hidden;
+}
+
+@media (max-width: 800px) {
+    input {
+        width: 80%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
 }
